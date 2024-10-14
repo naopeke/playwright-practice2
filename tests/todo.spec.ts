@@ -16,3 +16,8 @@ test('test', async ({ page }) => {
   await page.getByRole('link', { name: 'Completed' }).click();
   await expect (page.getByTestId('todo-title')).toHaveText('water the plants');
 });
+
+test('text field is cleared when item is added', async ({ page }) =>{
+    await page.goto('https://demo.playwright.dev/todomvc/#/');
+    await page.locator('.new-todo').fill('water the plants');
+})
