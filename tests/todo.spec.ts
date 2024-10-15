@@ -10,12 +10,13 @@ test.beforeEach(async ({ page})=>{
 
 test.describe('New Todo', ()=>{
 
-  test('test', async ({ page }) => {
-    await page.getByPlaceholder('What needs to be done?').click();
-    await page.getByPlaceholder('What needs to be done?').fill('water the plants');
-    await page.getByPlaceholder('What needs to be done?').press('Enter');
-    await page.getByPlaceholder('What needs to be done?').fill('feed the dog');
-    await page.getByPlaceholder('What needs to be done?').press('Enter');
+  test('active and completed filters', async ({ page }) => {
+    const todoInput = page.getByPlaceholder('What needs to be done?')
+    await todoInput.click();
+    await todoInput.fill('water the plants');
+    await todoInput.press('Enter');
+    await todoInput.fill('feed the dog');
+    await todoInput.press('Enter');
     await page.locator('li').filter({ hasText: 'water the plants' }).getByLabel('Toggle Todo').check();
     await page.getByRole('link', { name: 'Active' }).click();
     await expect (page.getByTestId('todo-title')).toHaveText('feed the dog');
@@ -25,8 +26,9 @@ test.describe('New Todo', ()=>{
   });
   
   test('text field is cleared when item is added', async ({ page }) =>{
-      await page.locator('.new-todo').fill('water the plants');
-      await page.locator('.new-todo').press('Enter');
-      expect (page.locator('.new-todo')).toBeEmpty();
+    const todoInput = page.getByPlaceholder('What needs to be done?')
+    await todoInput.fill('water the plants');
+    await todoInput.press('Enter');
+    expect (todoInput).toBeEmpty();
   })
 })
