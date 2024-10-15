@@ -5,13 +5,12 @@ import { test, expect } from '@playwright/test';
 test.use({ headless: false })
 
 test.beforeEach(async ({ page})=>{
-  await page.goto('https://demo.playwright.dev/todomvc/#/');
+  await page.goto('');
 })
 
 test.describe('New Todo', ()=>{
 
   test('test', async ({ page }) => {
-    await page.goto('https://demo.playwright.dev/todomvc/#/');
     await page.getByPlaceholder('What needs to be done?').click();
     await page.getByPlaceholder('What needs to be done?').fill('water the plants');
     await page.getByPlaceholder('What needs to be done?').press('Enter');
@@ -26,7 +25,6 @@ test.describe('New Todo', ()=>{
   });
   
   test('text field is cleared when item is added', async ({ page }) =>{
-      await page.goto('https://demo.playwright.dev/todomvc/#/');
       await page.locator('.new-todo').fill('water the plants');
       await page.locator('.new-todo').press('Enter');
       expect (page.locator('.new-todo')).toBeEmpty();
